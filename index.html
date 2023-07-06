@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+
+        body {
+            background-color: #FF0000;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .rock {
+            background-color: rgb(35, 219, 35);
+            display: flex;
+            flex-direction: column;
+            border: 2px green solid;
+            border-radius: 20px;
+            width: 500px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .players {
+            width: 348px;
+            display: flex;
+            /* flex-direction: row; */
+            justify-content: space-between;
+            /* margin-top: 10px; */
+        }
+
+        .names {
+            display: flex;
+            justify-content: space-between;
+            width: 300px;
+        }
+
+        .you {
+            background-image: url('rock.png');
+            /* Adjust the background size as needed */
+            background-size: cover;
+            height: 100px;
+            width: 100px;
+        }
+
+        .opponent {
+            background-image: url('rock.png');
+            /* Adjust the background size as needed */
+            background-size: cover;
+            height: 100px;
+            width: 100px;
+        }
+
+        .choose {
+            margin-top: 10px;
+        }
+
+        button {
+            margin: 10px;
+            cursor: pointer;
+            border: 4px red solid;
+            border-radius: 10px;
+            background-color: lightblue;
+            width: 90px;
+        }
+
+        button:hover {
+            border: 3px blue solid;
+            background-color: white;
+        }
+
+        .reset {
+            border: 3px black solid;
+            background-color: red;
+            color: white;
+            border-radius: 0px;
+            height: 25px;
+        }
+
+        .reset:hover {
+            background-color: red;
+            border: 4px blue solid;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="rock">
+            <h2 id="result">Let's Go</h2>
+            <div class="names">
+                <h3 class="score">You: 0</h3>
+                <h3 class="score">Osama: 0</h3>
+            </div>
+            <div class="players">
+                <div class="you" id="you"></div>
+                <div class="opponent" id="opponent"></div>
+            </div>
+            <div class="choose">
+                <button onclick="rock()">Rock</button>
+                <button onclick="paper()">Paper</button>
+                <button onclick="scissors()">Scissor</button>
+            </div>
+            <button class="reset" onclick="reset()">reset</button>
+        </div>
+    </div>
+
+    <script>
+
+        let you = document.getElementById('you');
+        let opponent = document.getElementById('opponent');
+        let score = document.getElementsByClassName('score');
+
+        // let content = score[1].textContent;
+        // console.log(typeof Math.floor(content[content.length - 1]))
+        // console.log(content[content.length - 1])
+
+        let rock =()=> {
+
+            let n = random();
+            let my_score = score[0].textContent;
+            let opponent_score = score[1].textContent;
+            my_score = Math.floor(my_score[my_score.length - 1])
+            opponent_score = Math.floor(opponent_score[opponent_score.length - 1])
+
+            // checking of game is over or not
+            if(my_score == 5 || opponent_score == 5) {
+                alert("The Game is Over");
+                location.reload();
+            }
+
+            you.style.backgroundImage = 'url("rock.png")';
+
+            if(n == 3) {
+                my_score++;
+                score[0].textContent = "You: " + my_score;
+            }
+            else if(n == 2) {
+                opponent_score++;
+                score[1].textContent = "Osama: " + opponent_score;
+            }
+            check();
+        }
+
+        let paper =()=> {
+            let n = random();
+            let my_score = score[0].textContent;
+            let opponent_score = score[1].textContent;
+            my_score = Math.floor(my_score[my_score.length - 1]);
+            opponent_score = Math.floor(opponent_score[opponent_score.length - 1]);
+
+            // checking of game is over or not
+            if(my_score == 5 || opponent_score == 5) {
+                alert("The Game is Over");
+                location.reload();
+            }
+
+            you.style.backgroundImage = 'url("paper.png")';
+            if(n == 1) {
+                my_score++;
+                score[0].textContent = "You: " + my_score;
+            }
+            else if(n == 3) {
+                opponent_score++;
+                score[1].textContent = "Osama: " + opponent_score;
+            }
+            check();
+        }
+
+        let scissors =()=> {
+            let n = random();
+            let my_score = score[0].textContent;
+            let opponent_score = score[1].textContent;
+            my_score = Math.floor(my_score[my_score.length - 1]);
+            opponent_score = Math.floor(opponent_score[opponent_score.length - 1]);
+
+            // checking of game is over or not
+            if(my_score == 5 || opponent_score == 5) {
+                alert("The Game is Over");
+                location.reload();
+            }
+
+            you.style.backgroundImage = 'url("scissors.png")';
+            if(n == 2) {
+                my_score++;
+                score[0].textContent = "You: " + my_score;
+            }
+            else if(n == 1) {
+                opponent_score++;
+                score[1].textContent = "Osama: " + opponent_score;
+            }
+            check();
+        }
+
+        function random() {
+            let x = Math.floor(Math.random() * 3) + 1; // wil generate a random no. between 1 and 3
+            if(x == 1) {
+                opponent.style.backgroundImage = 'url("rock.png")';
+            }
+            else if(x == 2) {
+                opponent.style.backgroundImage = 'url("paper.png")';
+            }
+            else {
+                opponent.style.backgroundImage = 'url("scissors.png")';
+            }
+            return x;
+        }
+
+        let result = document.getElementById('result');
+
+        function check() {
+            console.log("okai");
+            let my_score = score[0].textContent;
+            let opponent_score = score[1].textContent;
+            my_score = Math.floor(my_score[my_score.length - 1]);
+            opponent_score = Math.floor(opponent_score[opponent_score.length - 1]);
+            if(my_score == 5) {
+                result.textContent = "You won, Osama has been defeated (" + my_score + " - " + opponent_score + ")";
+            }
+            else if(opponent_score == 5) {
+                result.textContent = "Damn bro, Osama Defeated you (" + my_score + " - " + opponent_score + ")";
+            }
+        }
+
+        reset =()=> {
+            location.reload();
+        }
+
+
+    </script>
+
+</body>
+
+</html>
